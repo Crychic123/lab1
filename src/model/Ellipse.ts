@@ -11,8 +11,8 @@ export class Ellipse extends Shape {
     for (const n of [this.cx, this.cy, this.rx, this.ry]) if (!Number.isFinite(n)) throw new Error('invalid geometry');
     if (this.rx < 0 || this.ry < 0) throw new Error('radius must be non-negative');
   }
-  move(dx: number, dy: number): void { this.cx += dx; this.cy += dy; }
-  scale(factor: number): void { this.cx *= factor; this.cy *= factor; this.rx *= factor; this.ry *= factor; }
+  move(dx: number, dy: number): void { this.finite(this.cx + dx, this.cy + dy); this.cx += dx; this.cy += dy; }
+  scale(factor: number): void { this.finite(this.cx * factor, this.cy * factor, this.rx * factor, this.ry * factor); this.cx *= factor; this.cy *= factor; this.rx *= factor; this.ry *= factor; }
   set(attribute: string, value: string): void {
     if (this.setStyle(attribute, value)) return;
     if (attribute === 'cx' || attribute === 'cy') this[attribute] = this.numeric(value);

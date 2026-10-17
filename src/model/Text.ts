@@ -7,8 +7,8 @@ export class Text extends Shape {
   }
   get type(): string { return 'text'; }
   override get textContent(): string { return this.content; }
-  move(dx: number, dy: number): void { this.x += dx; this.y += dy; }
-  scale(factor: number): void { this.x *= factor; this.y *= factor; }
+  move(dx: number, dy: number): void { this.finite(this.x + dx, this.y + dy); this.x += dx; this.y += dy; }
+  scale(factor: number): void { this.finite(this.x * factor, this.y * factor); this.x *= factor; this.y *= factor; }
   set(attribute: string, value: string): void {
     if (this.setStyle(attribute, value)) return;
     if (attribute === 'x' || attribute === 'y') this[attribute] = this.numeric(value);

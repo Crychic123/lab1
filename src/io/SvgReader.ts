@@ -10,6 +10,15 @@ export class SvgReader {
     if (this.localName(root.name) !== 'svg') throw new Error('root element must be <svg>');
     const width = this.dimension(root.attributes.width);
     const height = this.dimension(root.attributes.height);
+    if (root.attributes.viewBox) {
+      const view = root.attributes.viewBox.trim().split(/[\s,]+/).map(Number);
+      if (view.length !== 4 || view.some(number => !Number.isFinite(number)) || view[0] !== 0 || view[1] !== 0 || view[2] !== width || view[3] !== height)
+        throw new Error('unsupported viewBox');
+    }
+    for (const key of Object.keys(root.attributes)) {
+      if (!['width', 'height', 'viewBox', 'xmlns', 'version'].includes(key) && !key.startsWith('xmlns:'))
+        throw new Error(`unsupported SVG attribute: ${key}`);
+    }
     const document = new SvgDocument(width, height);
     const explicitIds = new Set<string>();
     this.visit(root, element => {

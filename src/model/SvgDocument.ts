@@ -51,7 +51,7 @@ export class SvgDocument {
     return shape;
   }
   group(id: string, ids: string[]): Group {
-    if (!ids.length) throw new Error('group requires at least one shape');
+    if (ids.length < 2) throw new Error('group requires at least two shapes');
     if (!id || /\s/.test(id)) throw new Error(`invalid id: ${id}`);
     if (this.find(id)) throw new Error(`id already exists: ${id}`);
     const selected = ids.map(item => this.require(item));

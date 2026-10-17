@@ -25,6 +25,9 @@ export abstract class Shape {
     if (value.trim() === '' || !Number.isFinite(number)) throw new Error(`invalid number: ${value}`);
     return number;
   }
+  protected finite(...values: number[]): void {
+    if (values.some(value => !Number.isFinite(value))) throw new Error('geometry exceeds numeric range');
+  }
 
   protected positive(value: string, attribute: string): number {
     const number = this.numeric(value);

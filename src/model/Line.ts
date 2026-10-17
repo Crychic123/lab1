@@ -7,8 +7,8 @@ export class Line extends Shape {
     for (const n of [x1, y1, x2, y2]) if (!Number.isFinite(n)) throw new Error('invalid geometry');
   }
   get type(): string { return 'line'; }
-  move(dx: number, dy: number): void { this.x1 += dx; this.x2 += dx; this.y1 += dy; this.y2 += dy; }
-  scale(factor: number): void { this.x1 *= factor; this.y1 *= factor; this.x2 *= factor; this.y2 *= factor; }
+  move(dx: number, dy: number): void { this.finite(this.x1 + dx, this.x2 + dx, this.y1 + dy, this.y2 + dy); this.x1 += dx; this.x2 += dx; this.y1 += dy; this.y2 += dy; }
+  scale(factor: number): void { this.finite(this.x1 * factor, this.y1 * factor, this.x2 * factor, this.y2 * factor); this.x1 *= factor; this.y1 *= factor; this.x2 *= factor; this.y2 *= factor; }
   set(attribute: string, value: string): void {
     if (this.setStyle(attribute, value)) return;
     if (attribute === 'x1' || attribute === 'y1' || attribute === 'x2' || attribute === 'y2') this[attribute] = this.numeric(value);

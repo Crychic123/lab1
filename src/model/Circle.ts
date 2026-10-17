@@ -11,8 +11,8 @@ export class Circle extends Shape {
     for (const n of [this.cx, this.cy, this.r]) if (!Number.isFinite(n)) throw new Error('invalid geometry');
     if (this.r < 0) throw new Error('r must be non-negative');
   }
-  move(dx: number, dy: number): void { this.cx += dx; this.cy += dy; }
-  scale(factor: number): void { this.cx *= factor; this.cy *= factor; this.r *= factor; }
+  move(dx: number, dy: number): void { this.finite(this.cx + dx, this.cy + dy); this.cx += dx; this.cy += dy; }
+  scale(factor: number): void { this.finite(this.cx * factor, this.cy * factor, this.r * factor); this.cx *= factor; this.cy *= factor; this.r *= factor; }
   set(attribute: string, value: string): void {
     if (this.setStyle(attribute, value)) return;
     if (attribute === 'cx' || attribute === 'cy') this[attribute] = this.numeric(value);

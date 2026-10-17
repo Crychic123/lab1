@@ -11,8 +11,8 @@ export class Rect extends Shape {
     for (const n of [this.x, this.y, this.width, this.height]) if (!Number.isFinite(n)) throw new Error('invalid geometry');
     if (this.width < 0 || this.height < 0) throw new Error('size must be non-negative');
   }
-  move(dx: number, dy: number): void { this.x += dx; this.y += dy; }
-  scale(factor: number): void { this.x *= factor; this.y *= factor; this.width *= factor; this.height *= factor; }
+  move(dx: number, dy: number): void { this.finite(this.x + dx, this.y + dy); this.x += dx; this.y += dy; }
+  scale(factor: number): void { this.finite(this.x * factor, this.y * factor, this.width * factor, this.height * factor); this.x *= factor; this.y *= factor; this.width *= factor; this.height *= factor; }
   set(attribute: string, value: string): void {
     if (this.setStyle(attribute, value)) return;
     if (attribute === 'x' || attribute === 'y') this[attribute] = this.numeric(value);
