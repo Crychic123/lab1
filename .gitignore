@@ -1,0 +1,4 @@
+node_modules/
+*.svg
+!test/fixtures/*.svg
+.DS_Store
