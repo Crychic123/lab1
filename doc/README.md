@@ -1,3 +1,7 @@
+# Lab1 Phase 1：SVG 编辑器 CLI
+
+Git 仓库地址：[https://github.com/Crychic123/lab1.git](https://github.com/Crychic123/lab1.git)
+
 # 架构方案
 
 ## 模块划分
